@@ -1362,8 +1362,17 @@
           'Browse ' + allServices.length + ' Services';
         document.getElementById('hero-hours').textContent = shop.hours || '';
         document.getElementById('hero-notice').textContent = shop.notice || '';
-        document.getElementById('visit-shop-details').textContent =
-          (shop.hours ? 'Open ' + shop.hours + '. ' : '') + (shop.notice || '');
+        const visitShopDetailsEl = document.getElementById('visit-shop-details');
+        visitShopDetailsEl.textContent = '';
+        if (shop.hours) {
+          visitShopDetailsEl.appendChild(document.createTextNode('Open ' + shop.hours + '.'));
+          if (shop.notice) {
+            visitShopDetailsEl.appendChild(document.createElement('br'));
+          }
+        }
+        if (shop.notice) {
+          visitShopDetailsEl.appendChild(document.createTextNode(shop.notice));
+        }
 
         const accordionEl = document.getElementById('allServicesAccordion');
         const searchInput = document.getElementById('service-search-input');
