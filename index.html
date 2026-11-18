@@ -856,19 +856,6 @@
                 >
                   <span class="tabular-nums" id="reset-checked-label">Reset Checked (0)</span>
                 </button>
-
-                <button
-                  id="print-view-btn"
-                  type="button"
-                  class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 px-3 py-2 text-nowrap"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                    <rect width="12" height="8" x="6" y="14"></rect>
-                  </svg>
-                  <span>Print View</span>
-                </button>
               </div>
             </div>
           </div>
@@ -1384,7 +1371,6 @@
         const expandAllBtn = document.getElementById('expand-all-btn');
         const resetCheckedBtn = document.getElementById('reset-checked-btn');
         const resetCheckedLabel = document.getElementById('reset-checked-label');
-        const printViewBtn = document.getElementById('print-view-btn');
         const emptyStateEl = document.getElementById('empty-state');
         const emptyStateMsg = document.getElementById('empty-state-msg');
         const emptyClearBtn = document.getElementById('empty-clear-btn');
@@ -1704,7 +1690,7 @@
             const copyBtn = document.createElement('button');
             copyBtn.type = 'button';
             copyBtn.className =
-              'btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 text-nowrap';
+              'btn btn-outline-secondary btn-sm d-none align-items-center gap-2 text-nowrap';
             const copyDefaultHtml =
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span>Copy List</span>';
             const copiedHtml =
@@ -1729,22 +1715,7 @@
               }
             });
 
-            const printBtn = document.createElement('button');
-            printBtn.type = 'button';
-            printBtn.className =
-              'btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 text-nowrap';
-            printBtn.innerHTML =
-              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg><span>Print</span>';
-            printBtn.addEventListener('click', () => {
-              allServices.forEach((s) => {
-                expandedIds[s.id] = s.id === service.id;
-              });
-              renderServices();
-              window.setTimeout(() => window.print(), 140);
-            });
-
             actionsWrap.appendChild(copyBtn);
-            actionsWrap.appendChild(printBtn);
             footerEl.appendChild(actionsWrap);
             bodyEl.appendChild(footerEl);
 
@@ -1810,14 +1781,6 @@
           checkedItems = {};
           saveChecked();
           renderServices();
-        });
-
-        printViewBtn.addEventListener('click', () => {
-          getFilteredServices().forEach((s) => {
-            expandedIds[s.id] = true;
-          });
-          renderServices();
-          window.setTimeout(() => window.print(), 140);
         });
 
         // Scroll-to-top visibility
